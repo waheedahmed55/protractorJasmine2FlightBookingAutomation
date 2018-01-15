@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "jasmine": "^2.8.0",
+    "moment": "^2.20.1",
+    "protractor": "^5.2.2",
+    "protractor-jasmine2-screenshot-reporter": "^0.5.0"
+  }
+}
