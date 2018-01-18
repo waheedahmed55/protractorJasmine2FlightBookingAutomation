@@ -3,8 +3,9 @@ module.exports = {
     destination: '#flights-search-destination-1',
     passengersDropdown: '#flights-search-open-pax-btn',
     adults: '[data-action="add"][data-pax-type="adult"]',
-    fromDatepicker: '#flights-search-mob-date-departureDate-LegIndex[data-key="departureDate"]',
-    toDatepicker: '#flights-search-mob-date-departureDate-LegIndex[data-key="returnDate"]',
+    removeAdults: '[data-action="remove"][data-pax-type="adult"]',
+    fromDatepicker: '.js-fs-departure-date [data-device="desktop"]',
+    toDatepicker: '.js-fs-return-date [data-device="desktop"]',
     calendarSelected: '.pika-lendar .is-selected',
     calendarEndRage: '.pika-lendar .is-selected.is-endrange',
     calendarButton: 'button',
@@ -12,8 +13,8 @@ module.exports = {
     searchFareLoader: '.fareLoaderDiv',
     flightSearchSummary: '#flights-results-summary',
     flightSummary: {
-      from: '#flights-results-summary [iata="vm.request.goingLeg.originId"] > a',
-      to: '#flights-results-summary [iata="vm.request.comingLeg.originId"] > a',
+      from: '#flights-results-summary .flight-search-summ__item:first-child > p:nth-child(1) span',
+      to: '#flights-results-summary .flight-search-summ__item:first-child > p:nth-child(3) span',
       fromDate: '#flights-results-summary .flight-search-summary__container .row:nth-child(2) .flight-search-summ__item:nth-child(2) p:first-child span',
       toDate: '#flights-results-summary .flight-search-summary__container .row:nth-child(2) .flight-search-summ__item:nth-child(2) p:last-child span',
       travellerCount: '#flights-results-summary .flight-search-summary__container .row:nth-child(2) .flight-search-summ__item:nth-child(4) p span'
