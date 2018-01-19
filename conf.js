@@ -1,4 +1,5 @@
 var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 const moment = require('moment');
 const outputDir = 'target/screenshots/' + moment().format('YYYY-MM-DD_hhmmss');
 var reporter = new HtmlScreenshotReporter({
@@ -33,13 +34,53 @@ exports.config = {
 
   // Assign the test reporter to each running instance
   onPrepare: function () {
-    jasmine.getEnv().addReporter(reporter);
+	  return new Promise(function (fulfill, reject) {
+            browser.getCapabilities().then(function (value) {
+
+                //chrome
+                let browserVersion = value.get('version');
+                if (!browserVersion){
+                    //firefox
+                    browserVersion = value.get('browserVersion');
+                }
+                let platform = value.get('platform');
+                if (!platform){
+                    platform = value.get('platformName');
+                }
+
+				reportName = platform + '_' + value.get('browserName') + '_'+ browserVersion + '_'+ Math.floor(Math.random()*1E16);
+                jasmine.getEnv().addReporter(
+                    new Jasmine2HtmlReporter({
+                        savePath: 'target2/',
+                        screenshotsFolder: 'images',
+                        consolidate: false,
+                        consolidateAll: false,
+                        fileName: reportName + ".html"
+                    })
+                );
+				jasmine.getEnv().addReporter(reporter);
+                fulfill();
+
+            })
+        });
   },
 
   // Close the report after all tests finish
   afterLaunch: function (exitCode) {
     return new Promise(function (resolve) {
-      reporter.afterLaunch(resolve.bind(this, exitCode));
+      var fs = require('fs');
+      var output = '';
+      fs.readdirSync('target2/').forEach(function(file) {
+        var matches = file.match(/_(\S+)_/);
+       if(fs.lstatSync('target2/' + file).isDirectory() || matches == null) {
+          return;
+      }
+		    var browserName = matches[1];
+        output = output + "<h1>" + browserName + "</h1>" + fs.readFileSync('target2/' + file);
+      });
+      fs.writeFileSync('target2/ConsolidatedReport.html', output, 'utf8');
+		  reporter.afterLaunch(resolve.bind(this, exitCode));
     });
+
   }
 }
