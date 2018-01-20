@@ -6,6 +6,7 @@ var reporter = new HtmlScreenshotReporter({
   dest: outputDir,
   filename: 'index.html'
 });
+var reports = [];
 
 exports.config = {
   rootElement: '*[ng-app]',
@@ -75,9 +76,13 @@ exports.config = {
        if(fs.lstatSync('target2/' + file).isDirectory() || matches == null) {
           return;
       }
-		    var browserName = matches[1];
-        output = output + "<h1>" + browserName + "</h1>" + fs.readFileSync('target2/' + file);
+	  var nameParts = file.split("_");
+	  var platform = nameParts[0];
+	  var browserName = nameParts[1];
+	  var browserVersion = nameParts[2];
+	  output = output + "<h2>Configuration</h2><p>Browser Name: "+browserName+" , Browser Version: "+browserVersion+", Platform: "+platform+"</p>"+fs.readFileSync('target2/' + file);
       });
+	  
       fs.writeFileSync('target2/ConsolidatedReport.html', output, 'utf8');
 		  reporter.afterLaunch(resolve.bind(this, exitCode));
     });
