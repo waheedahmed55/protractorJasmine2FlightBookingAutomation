@@ -1,3 +1,4 @@
+<a name="README">[<img src="https://rawgithub.com/jasmine/jasmine/master/images/jasmine-horizontal.svg" width="400px" />](http://jasmine.github.io)</a>
 # Testing
 
 ## Install
