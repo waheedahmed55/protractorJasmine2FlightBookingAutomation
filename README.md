@@ -1,4 +1,6 @@
-<img align="center" width="350" height="150" src="https://rawgithub.com/jasmine/jasmine/master/images/jasmine-horizontal.svg">
+<p align="center">
+  <img src="https://rawgithub.com/jasmine/jasmine/master/images/jasmine-horizontal.svg">
+</p>
 # Testing
 
 ## Install
